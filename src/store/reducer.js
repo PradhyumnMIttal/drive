@@ -1,13 +1,49 @@
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from "./actionType";
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO,FOLDER_LIST } from "./actionType";
 
 const initalState = {
     todos:[
-    {id:10,title: "Lets walk",type: "folder"},
     {
-      id:20,title: "Lets talk", type: "file"
+      id: 1, title: "Images", type: "folder", fol_contents: [
+        {
+          id: 13, title: "folder1", type: "folder",
+          fol_contents:[]
+        },
+        {
+          id: 14, title: "folder2", type: "folder",
+          fol_contents:[] 
+        }
+    ]},
+    {
+      id:2,title: "photo.pdf", type: "file",fol_contents: [
+        {
+          id: 13, title: "New FOlder", type: "folder",
+          fol_contents:[]
+        },
+        {
+          id: 14, title: "New FOld2er", type: "folder",
+          fol_contents:[] 
+        }]
     }, {
-      id:30,title: "Lets chat", type: "folder"
-    },{id:40,title: "Lets Play",type: "file"}]
+      id:3,title: "Music", type: "folder",fol_contents: [
+        {
+          id: 13, title: "New FOlder", type: "folder",
+          fol_contents:[]
+        },
+        {
+          id: 14, title: "New FOld2er", type: "folder",
+          fol_contents:[] 
+        }]
+    },{
+      id: 4, title: "index.js", type: "file", fol_contents: [
+        {
+          id: 13, title: "New FOlder", type: "folder",
+          fol_contents:[]
+        },
+        {
+          id: 14, title: "New FOld2er", type: "folder",
+          fol_contents:[] 
+        }]
+    }]
 }
 export const reducer = (state=initalState, action) => {
     const { type, payload } = action;
@@ -26,7 +62,10 @@ export const reducer = (state=initalState, action) => {
             else
               return todo;
           })
-      }
+        }
+      case FOLDER_LIST:
+        return state;
+        
       default:
         return state;
       

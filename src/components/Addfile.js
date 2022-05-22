@@ -19,6 +19,7 @@ const initalState = {
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
+    width: 300
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
@@ -28,7 +29,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 2  ,align:'center'}} {...other}>
       {children}
       {onClose ? (
         <IconButton
@@ -73,7 +74,6 @@ export default function Addfile({ open, handleChange,todo }) {
     dispatch({ type: ADD_TODO, payload: { ...formdata,id:Math.random() } })
     handleChange();
     setFormdata(initalState);
-    
   }
  
   useEffect(() => {
@@ -83,11 +83,13 @@ export default function Addfile({ open, handleChange,todo }) {
   return (
     <div>
       <BootstrapDialog
+       
+        maxWidth='md'
         onClose={handleChange}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleChange}>
+        <BootstrapDialogTitle sx={{ m: 0, p: 2 }}  id="customized-dialog-title-bd" onClose={handleChange}>
         { todo?"Rename":"Create New"}
         </BootstrapDialogTitle>
          <form onSubmit={handleSubmit}>
@@ -107,7 +109,7 @@ export default function Addfile({ open, handleChange,todo }) {
           <MenuItem value='file'>File</MenuItem>
         </Select>
             </FormControl>:<FormControl 
-                fullWidth required >
+               fullWidth  required >
                 
         <InputLabel id="type" >Type</InputLabel>
         <Select 
@@ -126,18 +128,15 @@ export default function Addfile({ open, handleChange,todo }) {
             <br>
             </br>
            <div className='Text'>        
-       <TextField
-              autoFocus
-              required
-            
+       <TextField fullWidth
+                autoFocus
+                required
               id="title"
               value={title}
           label="Name"
           onChange={(e)=>handleform(e,'title')}
         />
-            
             </div>
-           
         </DialogContent>
         <DialogActions>
          { todo?<Button autoFocus onClick={handleUpdate}>

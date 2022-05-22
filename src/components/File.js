@@ -6,10 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import fileimg from '../assets/file.png'
 import folderimg from '../assets/folder.png'
-import './Todo.css'
+import './File.css'
+import { useNavigate } from 'react-router-dom';
 export default function Todo({ todo, handleDelete, handleUpdate }) {
+  const navigate=useNavigate();
   const [contextMenu, setContextMenu] = React.useState(null);
-
   const handleContextMenu = (event) => {
     event.preventDefault();
     setContextMenu(
@@ -18,10 +19,7 @@ export default function Todo({ todo, handleDelete, handleUpdate }) {
             mouseX: event.clientX + 2,
             mouseY: event.clientY - 6,
           }
-        : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
-          // Other native context menus might behave different.
-          // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
-          null,
+        :   null,
     );
   };
 
@@ -31,7 +29,9 @@ export default function Todo({ todo, handleDelete, handleUpdate }) {
   
   return (
      <div  onContextMenu={handleContextMenu} style={{  display:"inline-block",border: "none", boxShadow: "none", marginTop: "30px"}}>
-            <Card style={{  display:"inline-block",border: "none", boxShadow: "none", marginTop: "30px"}} sx={{ maxWidth: 200,mx: 2, width:200  }} >
+      <Card onDoubleClick={() => { if (todo.type ==='folder') { navigate("/folder") }}}
+    
+           style={{  display:"inline-block",border: "none", boxShadow: "none", marginTop: "30px"}} sx={{ maxWidth: 200,mx: 2, width:200  }} >
         <CardMedia
           component="img"
           width="400" 
